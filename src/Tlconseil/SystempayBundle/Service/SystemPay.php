@@ -25,7 +25,6 @@ class SystemPay
         'action_mode' => null,
         'ctx_mode' => null,
         'page_action' => null,
-        'payment_config' => null,
         'site_id' => null,
         'version' => null,
         'redirect_success_message' => null,
@@ -90,13 +89,14 @@ class SystemPay
      * 95 € = 9500
      * @return $this
      */
-    public function init($currency = 978, $amount = 1000)
+    public function init($currency = 978, $amount = 1000, $paymentConfig = "SINGLE")
     {
         $this->transaction = $this->newTransaction($currency, $amount);
         $this->mandatoryFields['amount'] = $amount;
         $this->mandatoryFields['currency'] = $currency;
         $this->mandatoryFields['trans_id'] = sprintf('%06d', $this->transaction->getId());
         $this->mandatoryFields['trans_date'] = gmdate('YmdHis');
+        $this->mandatoryFields['payment_config'] = $paymentConfig;
         return $this;
     }
 
